@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Question } from "../types/Question";
 import { getRandomQuestionByDifficulty } from "../libs/getRandomQuestionByDifficulty";
 import { Level } from "../types/Level";
@@ -17,6 +17,7 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
     level === "EASY" ? 60 : level === "NORMAL" ? 120 : 180
   );
   const [score, setScore] = useState<number>(0);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -32,23 +33,21 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
   }, [timeLeft, score, onFinish]);
 
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      const value = inputValue + e.key;
-      setInputValue(value);
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
-      if (value === question.kana) {
-        setScore((prevScore) => prevScore + value.length);
-        setQuestion(getRandomQuestionByDifficulty(level));
-        setInputValue("");
-      }
-    };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setInputValue(value);
 
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [inputValue, question, level]);
+    if (value === question.kana) {
+      setScore((prevScore) => prevScore + value.length);
+      setQuestion(getRandomQuestionByDifficulty(level));
+      setInputValue("");
+    }
+  };
 
   const renderKanaWithColors = () => {
     return question.kana.split("").map((char, index) => {
@@ -65,7 +64,7 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
 
   return (
     <div style={{ textAlign: "center", fontFamily: "Arial, sans-serif" }}>
-      <h2>残り時間: {timeLeft}秒</h2>
+      <h2>残り時間: {timeLeft}s</h2>
       <div>
         <h3 style={{ fontSize: "24px", marginBottom: "10px" }}>
           {question.kanji}
@@ -74,6 +73,14 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
           {renderKanaWithColors()}
         </div>
       </div>
+      <input
+        ref={inputRef}
+        type="text"
+        value={inputValue}
+        onChange={handleInputChange}
+        style={{ opacity: 0, position: "absolute", top: "-9999px" }}
+        autoFocus
+      />
       <p>点数: {score}</p>
     </div>
   );
