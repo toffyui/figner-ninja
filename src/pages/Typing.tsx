@@ -42,12 +42,12 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
     if (inputRef.current) {
       inputRef.current.blur();
       setTimeout(() => {
-        setInputValue("");
         if (inputRef.current) {
           inputRef.current.value = "";
           inputRef.current.focus();
+          setInputValue("");
         }
-      }, 0);
+      }, 100);
     }
   };
 
