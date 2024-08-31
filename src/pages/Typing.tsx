@@ -116,7 +116,7 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
         type="text"
         value={inputValue}
         onChange={handleInputChange}
-        style={{ opacity: 0, position: "absolute", top: "-9999px" }}
+        // style={{ opacity: 0, position: "absolute", top: "-9999px" }}
         autoFocus
       />
       <p>点数: {score}</p>
