@@ -49,6 +49,9 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
       setQuestion(getRandomQuestionByDifficulty(level));
       setShowCorrectAnimation(false);
     }, 500);
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 600);
   };
 
   const resetInputField = () => {
