@@ -44,7 +44,12 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
 
     if (value === question.kana) {
       setScore((prevScore) => prevScore + value.length);
+
       setInputValue("");
+      if (inputRef.current) {
+        inputRef.current.value = "";
+      }
+
       setQuestion(getRandomQuestionByDifficulty(level));
     }
   };
