@@ -35,12 +35,16 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
 
   useEffect(() => {
     if (inputRef.current) {
+      inputRef.current.value = "";
       inputRef.current.focus();
-      setInputValue("");
     }
   }, [inputKey]);
 
   const resetInputField = () => {
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
+    setInputValue("");
     setInputKey((prevKey) => prevKey + 1);
   };
 
