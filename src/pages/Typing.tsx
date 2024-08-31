@@ -38,18 +38,26 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
     }
   }, []);
 
+  const resetInputField = () => {
+    if (inputRef.current) {
+      inputRef.current.blur();
+      setTimeout(() => {
+        inputRef.current?.focus();
+        setInputValue("");
+        if (inputRef.current) {
+          inputRef.current.value = "";
+        }
+      }, 0);
+    }
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
 
     if (value === question.kana) {
       setScore((prevScore) => prevScore + value.length);
-
-      setInputValue("");
-      if (inputRef.current) {
-        inputRef.current.value = "";
-      }
-
+      resetInputField();
       setQuestion(getRandomQuestionByDifficulty(level));
     }
   };
