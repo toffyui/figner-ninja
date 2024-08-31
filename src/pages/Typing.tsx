@@ -18,6 +18,8 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
   );
   const [score, setScore] = useState<number>(0);
   const [inputKey, setInputKey] = useState<number>(0);
+  const [showCorrectAnimation, setShowCorrectAnimation] =
+    useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -40,6 +42,15 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
     }
   }, [inputKey]);
 
+  const handleCorrectAnswer = () => {
+    setShowCorrectAnimation(true);
+    setTimeout(() => {
+      resetInputField();
+      setQuestion(getRandomQuestionByDifficulty(level));
+      setShowCorrectAnimation(false);
+    }, 500);
+  };
+
   const resetInputField = () => {
     if (inputRef.current) {
       inputRef.current.value = "";
@@ -54,8 +65,7 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
 
     if (value === question.kana) {
       setScore((prevScore) => prevScore + value.length);
-      resetInputField();
-      setQuestion(getRandomQuestionByDifficulty(level));
+      handleCorrectAnswer();
     }
   };
 
@@ -83,13 +93,30 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
           {renderKanaWithColors()}
         </div>
       </div>
+      {showCorrectAnimation && (
+        <div
+          style={{
+            position: "fixed",
+            width: "100vw",
+            background: "white",
+            top: 0,
+            left: 0,
+            height: "50vh",
+            color: "green",
+            fontSize: "24px",
+            marginBottom: "20px",
+          }}
+        >
+          正解！
+        </div>
+      )}
       <input
         key={inputKey}
         ref={inputRef}
         type="text"
         value={inputValue}
         onChange={handleInputChange}
-        // style={{ opacity: 0, position: "absolute", top: "-9999px" }}
+        style={{ opacity: 0, position: "absolute", top: "-9999px" }}
         autoFocus
       />
       <p>点数: {score}</p>
