@@ -38,12 +38,20 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
     }
   }, []);
 
+  const forceInputConfirmation = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+      document.execCommand("insertText", false, "");
+    }
+  };
+
   const resetInputField = () => {
+    forceInputConfirmation();
     if (inputRef.current) {
       inputRef.current.value = "";
       inputRef.current.focus();
-      setInputValue("");
     }
+    setInputValue("");
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
