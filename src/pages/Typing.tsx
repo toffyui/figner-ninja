@@ -40,14 +40,9 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
 
   const resetInputField = () => {
     if (inputRef.current) {
-      inputRef.current.blur();
-      setTimeout(() => {
-        if (inputRef.current) {
-          inputRef.current.value = "";
-          inputRef.current.focus();
-          setInputValue("");
-        }
-      }, 100);
+      inputRef.current.value = "";
+      inputRef.current.focus();
+      setInputValue("");
     }
   };
 
