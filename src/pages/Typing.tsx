@@ -17,6 +17,7 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
     level === "EASY" ? 60 : level === "NORMAL" ? 120 : 180
   );
   const [score, setScore] = useState<number>(0);
+  const [inputKey, setInputKey] = useState<number>(0);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -36,22 +37,11 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  }, []);
-
-  const forceInputConfirmation = () => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-      document.execCommand("insertText", false, "");
-    }
-  };
+  }, [inputKey]);
 
   const resetInputField = () => {
-    forceInputConfirmation();
-    if (inputRef.current) {
-      inputRef.current.value = "";
-      inputRef.current.focus();
-    }
     setInputValue("");
+    setInputKey((prevKey) => prevKey + 1);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,11 +80,12 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
         </div>
       </div>
       <input
+        key={inputKey}
         ref={inputRef}
         type="text"
         value={inputValue}
         onChange={handleInputChange}
-        // style={{ opacity: 0, position: "absolute", top: "-9999px" }}
+        style={{ opacity: 0, position: "absolute", top: "-9999px" }}
         autoFocus
       />
       <p>点数: {score}</p>
