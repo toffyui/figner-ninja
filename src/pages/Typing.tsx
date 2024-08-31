@@ -44,8 +44,8 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
 
     if (value === question.kana) {
       setScore((prevScore) => prevScore + value.length);
-      setQuestion(getRandomQuestionByDifficulty(level));
       setInputValue("");
+      setQuestion(getRandomQuestionByDifficulty(level));
     }
   };
 
@@ -64,7 +64,7 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
 
   return (
     <div style={{ textAlign: "center", fontFamily: "Arial, sans-serif" }}>
-      <h2>残り時間: {timeLeft}s</h2>
+      <h2>残り時間: {timeLeft}秒</h2>
       <div>
         <h3 style={{ fontSize: "24px", marginBottom: "10px" }}>
           {question.kanji}
