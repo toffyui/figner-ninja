@@ -15,6 +15,7 @@ export const InputForm: React.FC<Props> = ({
     if (inputRef.current) {
       inputRef.current.value = "";
       inputRef.current.focus();
+      handleInputChange({ target: { value: "" } } as any);
     }
   }, [inputKey]);
   const inputRef = useRef<HTMLInputElement | null>(null);
