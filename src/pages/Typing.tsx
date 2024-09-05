@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Question } from "../types/Question";
 import { getRandomQuestionByDifficulty } from "../libs/getRandomQuestionByDifficulty";
 import { Level } from "../types/Level";
