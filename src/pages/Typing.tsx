@@ -18,6 +18,7 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
     level === "EASY" ? 60 : level === "NORMAL" ? 120 : 180
   );
   const [score, setScore] = useState<number>(0);
+  const [inputKey, setInputKey] = useState<number>(0);
   const [showCorrectAnimation, setShowCorrectAnimation] =
     useState<boolean>(false);
 
@@ -35,16 +36,19 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
   }, [timeLeft, score, onFinish]);
 
   const handleCorrectAnswer = () => {
-    setShowCorrectAnimation(true);
-    setTimeout(() => {
-      resetInputField();
-      setQuestion(getRandomQuestionByDifficulty(level));
-      setShowCorrectAnimation(false);
-    }, 500);
+    // setShowCorrectAnimation(true);
+    resetInputField();
+    setQuestion(getRandomQuestionByDifficulty(level));
+    // setTimeout(() => {
+    //   resetInputField();
+    //   setQuestion(getRandomQuestionByDifficulty(level));
+    //   setShowCorrectAnimation(false);
+    // }, 500);
   };
 
   const resetInputField = () => {
     setInputValue("");
+    setInputKey((prevKey) => prevKey + 1);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,7 +85,7 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
           {renderKanaWithColors()}
         </div>
       </div>
-      {showCorrectAnimation && (
+      {/* {showCorrectAnimation && (
         <div
           style={{
             position: "fixed",
@@ -97,10 +101,11 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
         >
           正解！
         </div>
-      )}
+      )} */}
       <InputForm
         inputValue={inputValue}
         handleInputChange={handleInputChange}
+        inputKey={inputKey}
       />
       <p>点数: {score}</p>
     </div>
