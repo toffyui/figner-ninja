@@ -19,6 +19,7 @@ export const InputForm: React.FC<Props> = ({
         handleInputChange({ target: { value: "" } } as any);
       }, 100);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputKey]);
   const inputRef = useRef<HTMLInputElement | null>(null);
   return (
@@ -28,7 +29,7 @@ export const InputForm: React.FC<Props> = ({
       value={inputValue}
       onChange={handleInputChange}
       key={inputKey}
-      // style={{ opacity: 0, position: "absolute", top: "-9999px" }}
+      style={{ opacity: 0, position: "absolute", top: "-9999px" }}
       autoFocus
     />
   );
