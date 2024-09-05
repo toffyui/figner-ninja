@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Question } from "../types/Question";
 import { getRandomQuestionByDifficulty } from "../libs/getRandomQuestionByDifficulty";
 import { Level } from "../types/Level";
+import { InputForm } from "../components/InputForm";
 
 interface TypingScreenProps {
   level: Level;
@@ -17,10 +18,8 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
     level === "EASY" ? 60 : level === "NORMAL" ? 120 : 180
   );
   const [score, setScore] = useState<number>(0);
-  const [inputKey, setInputKey] = useState<number>(0);
   const [showCorrectAnimation, setShowCorrectAnimation] =
     useState<boolean>(false);
-  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -35,13 +34,6 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
     return () => clearInterval(timer);
   }, [timeLeft, score, onFinish]);
 
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.value = "";
-      inputRef.current.focus();
-    }
-  }, [inputKey]);
-
   const handleCorrectAnswer = () => {
     setShowCorrectAnimation(true);
     setTimeout(() => {
@@ -49,17 +41,10 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
       setQuestion(getRandomQuestionByDifficulty(level));
       setShowCorrectAnimation(false);
     }, 500);
-    setTimeout(() => {
-      inputRef.current?.focus();
-    }, 600);
   };
 
   const resetInputField = () => {
-    if (inputRef.current) {
-      inputRef.current.value = "";
-    }
     setInputValue("");
-    setInputKey((prevKey) => prevKey + 1);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,14 +98,9 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
           正解！
         </div>
       )}
-      <input
-        key={inputKey}
-        ref={inputRef}
-        type="text"
-        value={inputValue}
-        onChange={handleInputChange}
-        // style={{ opacity: 0, position: "absolute", top: "-9999px" }}
-        autoFocus
+      <InputForm
+        inputValue={inputValue}
+        handleInputChange={handleInputChange}
       />
       <p>点数: {score}</p>
     </div>
