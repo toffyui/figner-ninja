@@ -15,7 +15,7 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
   );
   const [inputValue, setInputValue] = useState<string>("");
   const [timeLeft, setTimeLeft] = useState<number>(
-    level === "EASY" ? 60 : level === "NORMAL" ? 120 : 180
+    level === "EASY" ? 30 : level === "NORMAL" ? 60 : 90
   );
   const [score, setScore] = useState<number>(0);
   const [inputKey, setInputKey] = useState<number>(0);
@@ -36,14 +36,12 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
   }, [timeLeft, score, onFinish]);
 
   const handleCorrectAnswer = () => {
-    // setShowCorrectAnimation(true);
+    setShowCorrectAnimation(true);
     resetInputField();
     setQuestion(getRandomQuestionByDifficulty(level));
-    // setTimeout(() => {
-    //   resetInputField();
-    //   setQuestion(getRandomQuestionByDifficulty(level));
-    //   setShowCorrectAnimation(false);
-    // }, 500);
+    setTimeout(() => {
+      setShowCorrectAnimation(false);
+    }, 500);
   };
 
   const resetInputField = () => {
@@ -85,7 +83,7 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
           {renderKanaWithColors()}
         </div>
       </div>
-      {/* {showCorrectAnimation && (
+      {showCorrectAnimation && (
         <div
           style={{
             position: "fixed",
@@ -93,15 +91,18 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
             background: "white",
             top: 0,
             left: 0,
-            height: "50vh",
+            height: "100vh",
             color: "green",
             fontSize: "24px",
             marginBottom: "20px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           正解！
         </div>
-      )} */}
+      )}
       <InputForm
         inputValue={inputValue}
         handleInputChange={handleInputChange}

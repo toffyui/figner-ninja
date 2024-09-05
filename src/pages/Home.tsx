@@ -12,7 +12,7 @@ export const Home = ({ onClick }: Props) => {
       <button onClick={() => onClick("EASY")} className={styles.button2}>
         <div className={styles.gameTitle}>かんたん</div>
         <div className={styles.gameDisc}>
-          1分
+          30秒
           <br />
           <span className={styles.star10_rating} data-rate="2"></span>
         </div>
@@ -20,7 +20,7 @@ export const Home = ({ onClick }: Props) => {
       <button onClick={() => onClick("NORMAL")} className={styles.button2}>
         <div className={styles.gameTitle}>ふつう</div>
         <div className={styles.gameDisc}>
-          2分
+          60秒
           <br />
           <span className={styles.star10_rating} data-rate="4.5"></span>
         </div>
@@ -28,7 +28,7 @@ export const Home = ({ onClick }: Props) => {
       <button onClick={() => onClick("HARD")} className={styles.button2}>
         <div className={styles.gameTitle}>むずかしい</div>
         <div className={styles.gameDisc}>
-          3分
+          90秒
           <br />
           <span className={styles.star10_rating} data-rate="7"></span>
         </div>

@@ -17,7 +17,7 @@ export const InputForm: React.FC<Props> = ({
       inputRef.current.focus();
       setTimeout(() => {
         handleInputChange({ target: { value: "" } } as any);
-      }, 10);
+      }, 200);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputKey]);
