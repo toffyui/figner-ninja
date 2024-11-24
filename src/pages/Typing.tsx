@@ -42,7 +42,7 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
     setQuestion(getRandomQuestionByDifficulty(level));
     setTimeout(() => {
       setShowCorrectAnimation(false);
-    }, 500);
+    }, 1200);
   };
 
   const resetInputField = () => {
