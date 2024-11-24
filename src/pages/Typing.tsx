@@ -3,6 +3,7 @@ import { Question } from "../types/Question";
 import { getRandomQuestionByDifficulty } from "../libs/getRandomQuestionByDifficulty";
 import { Level } from "../types/Level";
 import { InputForm } from "../components/InputForm";
+import { CorrectAnimation } from "../components/Correct";
 
 interface TypingScreenProps {
   level: Level;
@@ -83,26 +84,7 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
           {renderKanaWithColors()}
         </div>
       </div>
-      {showCorrectAnimation && (
-        <div
-          style={{
-            position: "fixed",
-            width: "100vw",
-            background: "white",
-            top: 0,
-            left: 0,
-            height: "100vh",
-            color: "green",
-            fontSize: "24px",
-            marginBottom: "20px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          正解！
-        </div>
-      )}
+      {showCorrectAnimation && <CorrectAnimation />}
       <InputForm
         inputValue={inputValue}
         handleInputChange={handleInputChange}
