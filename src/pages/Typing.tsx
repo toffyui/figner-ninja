@@ -4,6 +4,7 @@ import { getRandomQuestionByDifficulty } from "../libs/getRandomQuestionByDiffic
 import { Level } from "../types/Level";
 import { InputForm } from "../components/InputForm";
 import { CorrectAnimation } from "../components/Correct";
+import styles from "../styles/Typing.module.scss";
 
 interface TypingScreenProps {
   level: Level;
@@ -55,10 +56,10 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (value.length === 0) return;
+    setInputValue(value);
     if (value === question.kana) {
       setScore((prevScore) => prevScore + value.length);
       handleCorrectAnswer();
-      setInputValue(value);
       if (typingSound.current) {
         typingSound.current.currentTime = 0;
         typingSound.current.play();
@@ -85,15 +86,15 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
   };
 
   return (
-    <div style={{ textAlign: "center", fontFamily: "Arial, sans-serif" }}>
-      <h2>残り時間: {timeLeft}秒</h2>
-      <div>
-        <h3 style={{ fontSize: "24px", marginBottom: "10px" }}>
-          {question.kanji}
-        </h3>
-        <div style={{ fontSize: "20px", marginBottom: "20px" }}>
-          {renderKanaWithColors()}
-        </div>
+    <div className={styles.container}>
+      <div className={styles.head}>
+        <div className={styles.time}>残り時間: {timeLeft}秒</div>
+        <span>点数: {score}</span>
+      </div>
+      <div className={styles.box}>
+        <img src="/images/ninja1.svg" alt="Ninja" className={styles.ninja} />
+        <h3 className={styles.kanji}>{question.kanji}</h3>
+        <div className={styles.kana}>{renderKanaWithColors()}</div>
       </div>
       {showCorrectAnimation && <CorrectAnimation />}
       <InputForm
@@ -101,7 +102,6 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
         handleInputChange={handleInputChange}
         inputKey={inputKey}
       />
-      <p>点数: {score}</p>
       <audio ref={typingSound} src="/sounds/typing.mp3" />
       <audio ref={failSound} src="/sounds/fail.mp3" />
     </div>

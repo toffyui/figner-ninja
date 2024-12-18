@@ -6,14 +6,14 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgb(240, 170, 33, 0.7);
+  background: rgb(240, 170, 33, 0.6);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-image: url(../../public/images/ninja3.svg),
     url(../../public/images/ninja2.svg);
-  background-size: 140px, 140px;
+  background-size: 100px, 100px;
   background-repeat: no-repeat, no-repeat;
   background-position: top 10% right 10%, bottom 10% left 10%;
 }

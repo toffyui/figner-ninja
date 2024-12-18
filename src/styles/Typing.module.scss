@@ -1,0 +1,34 @@
+.container {
+  background: rgb(240, 170, 33, 0.6);
+  height: 100vh;
+  text-align: center;
+  padding: 0 16px;
+  .head {
+    display: flex;
+    justify-content: space-between;
+    font-size: 24px;
+    padding: 16px 0;
+  }
+  .box {
+    background: white;
+    border-radius: 12px;
+    border: 2px solid #363b44;
+    position: relative;
+    margin-top: 50px;
+    .ninja {
+      position: absolute;
+      left: 50%;
+      top: -50px;
+      transform: translate(-50%, 0);
+      width: 72px;
+    }
+    .kanji {
+      font-size: 24px;
+      margin: 32px 0 16px;
+    }
+    .kana {
+      font-size: 20px;
+      margin-bottom: 24px;
+    }
+  }
+}
