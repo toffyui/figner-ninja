@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, useAnimation } from "framer-motion";
 import styles from "./index.module.scss";
+import { successTexts } from "../../utils/successTexts";
 
 export const CorrectAnimation = () => {
   const [show, setShow] = useState(false);
   const controls = useAnimation();
+  const shurikenSound = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -19,7 +21,10 @@ export const CorrectAnimation = () => {
     };
 
     animationSequence();
-
+    if (shurikenSound.current) {
+      shurikenSound.current.currentTime = 0;
+      shurikenSound.current.play();
+    }
     return () => {
       isMounted = false;
     };
@@ -88,8 +93,9 @@ export const CorrectAnimation = () => {
         initial="initial"
         animate="visible"
       >
-        正解！
+        {successTexts[Math.floor(Math.random() * successTexts.length)]}
       </motion.div>
+      <audio ref={shurikenSound} src="/sounds/shuriken.mp3" />
     </div>
   );
 };
