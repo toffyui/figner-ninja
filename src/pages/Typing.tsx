@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Question } from "../types/Question";
 import { getRandomQuestionByDifficulty } from "../libs/getRandomQuestionByDifficulty";
 import { Level } from "../types/Level";
@@ -20,6 +20,8 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
   );
   const [score, setScore] = useState<number>(0);
   const [inputKey, setInputKey] = useState<number>(0);
+  const typingSound = useRef<HTMLAudioElement | null>(null);
+  const failSound = useRef<HTMLAudioElement | null>(null);
   const [showCorrectAnimation, setShowCorrectAnimation] =
     useState<boolean>(false);
 
@@ -52,11 +54,20 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setInputValue(value);
-
+    if (value.length === 0) return;
     if (value === question.kana) {
       setScore((prevScore) => prevScore + value.length);
       handleCorrectAnswer();
+      setInputValue(value);
+      if (typingSound.current) {
+        typingSound.current.currentTime = 0;
+        typingSound.current.play();
+      }
+    } else {
+      if (failSound.current) {
+        failSound.current.currentTime = 0;
+        failSound.current.play();
+      }
     }
   };
 
@@ -91,6 +102,8 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
         inputKey={inputKey}
       />
       <p>点数: {score}</p>
+      <audio ref={typingSound} src="/sounds/typing.mp3" />
+      <audio ref={failSound} src="/sounds/fail.mp3" />
     </div>
   );
 };
