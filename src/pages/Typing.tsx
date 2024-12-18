@@ -55,11 +55,13 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    if (value.length === 0) return;
-    setInputValue(value);
     if (value === question.kana) {
       setScore((prevScore) => prevScore + value.length);
       handleCorrectAnswer();
+    }
+    const lastChar = question.kana[question.kana.length - 1];
+    if (value[value.length - 1] === lastChar) {
+      setInputValue(value);
       if (typingSound.current) {
         typingSound.current.currentTime = 0;
         typingSound.current.play();
