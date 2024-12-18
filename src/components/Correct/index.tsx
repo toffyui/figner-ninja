@@ -1,17 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { motion, useAnimation } from "framer-motion";
 import styles from "./index.module.scss";
 import { successTexts } from "../../utils/successTexts";
 
 export const CorrectAnimation = () => {
-  const [show, setShow] = useState(false);
   const controls = useAnimation();
   const shurikenSound = useRef<HTMLAudioElement | null>(null);
+  const successText =
+    successTexts[Math.floor(Math.random() * successTexts.length)];
 
   useEffect(() => {
     let isMounted = true;
-
-    setShow(true);
 
     const animationSequence = async () => {
       if (!isMounted) return;
@@ -56,10 +55,7 @@ export const CorrectAnimation = () => {
   };
 
   return (
-    <div
-      className={`${styles.container} ${show ? styles.show : ""}`}
-      style={{ height: getVisibleHeight() }}
-    >
+    <div className={styles.container} style={{ height: getVisibleHeight() }}>
       <motion.div
         className={styles.shuriken}
         variants={shurikenVariants}
@@ -93,7 +89,7 @@ export const CorrectAnimation = () => {
         initial="initial"
         animate="visible"
       >
-        {successTexts[Math.floor(Math.random() * successTexts.length)]}
+        {successText}
       </motion.div>
       <audio ref={shurikenSound} src="/sounds/shuriken.mp3" />
     </div>

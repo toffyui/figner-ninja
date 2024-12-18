@@ -29,7 +29,7 @@ export const InputForm: React.FC<Props> = ({
       value={inputValue}
       onChange={handleInputChange}
       key={inputKey}
-      // style={{ opacity: 0, position: "absolute", top: "-9999px" }}
+      style={{ opacity: 0, position: "absolute", top: "-9999px" }}
       autoFocus
     />
   );

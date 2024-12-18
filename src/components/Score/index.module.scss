@@ -19,7 +19,8 @@
       margin: 32px 16px 24px;
     }
   }
-  .button {
+  .button,
+  .topButton {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,5 +28,13 @@
     border: 2px solid #363b44;
     padding: 8px;
     border-radius: 8px;
+    color: white;
+    width: 100%;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .topButton {
+    background: white;
+    color: black;
   }
 }

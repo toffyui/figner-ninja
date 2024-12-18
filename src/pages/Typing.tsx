@@ -5,6 +5,7 @@ import { Level } from "../types/Level";
 import { InputForm } from "../components/InputForm";
 import { CorrectAnimation } from "../components/Correct";
 import styles from "../styles/Typing.module.scss";
+import { Fail } from "../components/Fail";
 
 interface TypingScreenProps {
   level: Level;
@@ -25,6 +26,7 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
   const failSound = useRef<HTMLAudioElement | null>(null);
   const [showCorrectAnimation, setShowCorrectAnimation] =
     useState<boolean>(false);
+  const [showFailAnimation, setShowFailAnimation] = useState<boolean>(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -48,6 +50,15 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
     }, 1200);
   };
 
+  const handleFailAnswer = () => {
+    setShowFailAnimation(true);
+    resetInputField();
+    setQuestion(getRandomQuestionByDifficulty(level));
+    setTimeout(() => {
+      setShowFailAnimation(false);
+    }, 1200);
+  };
+
   const resetInputField = () => {
     setInputValue("");
     setInputKey((prevKey) => prevKey + 1);
@@ -62,19 +73,17 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
     const currentInputChar = value[value.length - 1];
 
     // 入力が進んだ場合のみ判定
-    if (value.length > inputValue.length) {
-      if (currentInputChar === nextExpectedChar) {
-        setInputValue(value); // 状態を更新
-        if (typingSound.current) {
-          typingSound.current.currentTime = 0;
-          typingSound.current.play();
-        }
-      } else {
-        e.target.value = inputValue;
-        if (failSound.current) {
-          failSound.current.currentTime = 0;
-          failSound.current.play();
-        }
+    if (currentInputChar === nextExpectedChar) {
+      setInputValue(value);
+      if (typingSound.current) {
+        typingSound.current.currentTime = 0;
+        typingSound.current.play();
+      }
+    } else if (value.length > inputValue.length) {
+      handleFailAnswer();
+      if (failSound.current) {
+        failSound.current.currentTime = 0;
+        failSound.current.play();
       }
     }
 
@@ -109,6 +118,7 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
         <div className={styles.kana}>{renderKanaWithColors()}</div>
       </div>
       {showCorrectAnimation && <CorrectAnimation />}
+      {showFailAnimation && <Fail />}
       <InputForm
         inputValue={inputValue}
         handleInputChange={handleInputChange}

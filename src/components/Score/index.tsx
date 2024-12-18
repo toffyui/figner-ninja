@@ -26,6 +26,9 @@ export const Score: React.FC<Props> = ({ score, level }) => {
   const shareHandler = () => {
     window.open(twitterURL(), "_blank");
   };
+  const redirectToTop = () => {
+    window.location.href = "/";
+  };
   return (
     <div className={styles.container}>
       <div className={styles.box}>
@@ -39,6 +42,9 @@ export const Score: React.FC<Props> = ({ score, level }) => {
       <button onClick={shareHandler} className={styles.button}>
         <img src="/images/x.svg" alt="x" className={styles.x} width={10} />
         シェアする
+      </button>
+      <button onClick={redirectToTop} className={styles.topButton}>
+        トップに戻る
       </button>
     </div>
   );
