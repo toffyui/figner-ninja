@@ -55,19 +55,25 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    const lastChar = question.kana[question.kana.length - 1];
-    if (value[value.length - 1] === lastChar) {
-      setInputValue(value);
+
+    // 現在の入力が次の正しい文字と一致しているか確認
+    const nextExpectedChar = question.kana[inputValue.length]; // 次に入力すべき文字
+    const currentInputChar = value[value.length - 1]; // 現在入力された文字
+
+    if (currentInputChar === nextExpectedChar) {
+      setInputValue(value); // 正しい場合のみ状態を更新
       if (typingSound.current) {
         typingSound.current.currentTime = 0;
         typingSound.current.play();
       }
-    } else if (value.length > inputValue.length) {
+    } else {
       if (failSound.current) {
         failSound.current.currentTime = 0;
         failSound.current.play();
       }
     }
+
+    // 完全一致のチェック
     if (value === question.kana) {
       setScore((prevScore) => prevScore + value.length);
       handleCorrectAnswer();
