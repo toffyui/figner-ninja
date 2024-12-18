@@ -56,20 +56,25 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
-    // 現在の入力が次の正しい文字と一致しているか確認
-    const nextExpectedChar = question.kana[inputValue.length]; // 次に入力すべき文字
-    const currentInputChar = value[value.length - 1]; // 現在入力された文字
+    // 次に期待する文字
+    const nextExpectedChar = question.kana[inputValue.length];
+    // 現在入力された文字
+    const currentInputChar = value[value.length - 1];
 
-    if (currentInputChar === nextExpectedChar) {
-      setInputValue(value); // 正しい場合のみ状態を更新
-      if (typingSound.current) {
-        typingSound.current.currentTime = 0;
-        typingSound.current.play();
-      }
-    } else {
-      if (failSound.current) {
-        failSound.current.currentTime = 0;
-        failSound.current.play();
+    // 入力が進んだ場合のみ判定
+    if (value.length > inputValue.length) {
+      if (currentInputChar === nextExpectedChar) {
+        setInputValue(value); // 状態を更新
+        if (typingSound.current) {
+          typingSound.current.currentTime = 0;
+          typingSound.current.play();
+        }
+      } else {
+        e.target.value = inputValue;
+        if (failSound.current) {
+          failSound.current.currentTime = 0;
+          failSound.current.play();
+        }
       }
     }
 
@@ -83,8 +88,7 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
   const renderKanaWithColors = () => {
     return question.kana.split("").map((char, index) => {
       const isCorrect = inputValue[index] === char;
-      const isTyped = inputValue[index] !== undefined;
-      const color = isCorrect ? "black" : isTyped ? "red" : "gray";
+      const color = isCorrect ? "black" : "gray";
       return (
         <span key={index} style={{ color }}>
           {char}
