@@ -62,7 +62,7 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
         typingSound.current.currentTime = 0;
         typingSound.current.play();
       }
-    } else {
+    } else if (value.length > inputValue.length) {
       if (failSound.current) {
         failSound.current.currentTime = 0;
         failSound.current.play();
@@ -77,7 +77,7 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
   const renderKanaWithColors = () => {
     return question.kana.split("").map((char, index) => {
       const isCorrect = inputValue[index] === char;
-      const isTyped = index < inputValue.length;
+      const isTyped = inputValue[index] !== undefined;
       const color = isCorrect ? "black" : isTyped ? "red" : "gray";
       return (
         <span key={index} style={{ color }}>
