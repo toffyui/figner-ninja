@@ -58,21 +58,21 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
     if (value === question.kana) {
       setScore((prevScore) => prevScore + value.length);
       handleCorrectAnswer();
+      return;
     }
-    setInputValue(value);
-    // const lastChar = question.kana[question.kana.length - 1];
-    // if (value[value.length - 1] === lastChar) {
-    //   setInputValue(value);
-    //   if (typingSound.current) {
-    //     typingSound.current.currentTime = 0;
-    //     typingSound.current.play();
-    //   }
-    // } else {
-    //   if (failSound.current) {
-    //     failSound.current.currentTime = 0;
-    //     failSound.current.play();
-    //   }
-    // }
+    const lastChar = question.kana[question.kana.length - 1];
+    if (value[value.length - 1] === lastChar) {
+      setInputValue(value);
+      if (typingSound.current) {
+        typingSound.current.currentTime = 0;
+        typingSound.current.play();
+      }
+    } else {
+      if (failSound.current) {
+        failSound.current.currentTime = 0;
+        failSound.current.play();
+      }
+    }
   };
 
   const renderKanaWithColors = () => {
