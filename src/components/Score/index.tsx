@@ -34,7 +34,6 @@ export const Score: React.FC<Props> = ({ score, level }) => {
       <div className={styles.box}>
         <img src="/images/ninja1.svg" alt="Ninja" className={styles.ninja} />
         <div className={styles.score}>
-          <span>あなたは</span>
           <span>{levelText}モードで</span>
           <span>{score}点獲得しました！</span>
         </div>

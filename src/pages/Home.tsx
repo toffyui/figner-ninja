@@ -12,17 +12,21 @@ export const Home = ({ onClick }: Props) => {
           src="/images/shuriken.svg"
           alt="Shuriken"
           className={styles.shuriken}
-          width={50}
+          width={30}
         />
         Finger Ninja
         <img
           src="/images/shuriken.svg"
           alt="Shuriken"
           className={styles.shuriken}
-          width={50}
+          width={30}
         />
       </div>
-      <p className={styles.desc}>あなたはフィンガー忍者ですか？</p>
+      <p className={styles.desc}>
+        君はフリック入力を極めて
+        <br />
+        フィンガー忍者になれるか？
+      </p>
       <button onClick={() => onClick("EASY")} className={styles.button2}>
         <div className={styles.gameTitle}>かんたん</div>
         <div className={styles.gameDisc}>
