@@ -7,6 +7,7 @@ type Props = {
 };
 
 export const Score: React.FC<Props> = ({ score, level }) => {
+  console.log(level);
   const levelText =
     level === "EASY"
       ? "かんたん"

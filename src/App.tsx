@@ -17,7 +17,6 @@ function App() {
   const handleFinish = (score: number) => {
     setFinalScore(score);
     setStatus("result");
-    setSelectedLevel(null);
   };
 
   return (
