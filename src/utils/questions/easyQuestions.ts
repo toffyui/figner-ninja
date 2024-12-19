@@ -12,7 +12,7 @@ export const easyQuestions: Question[] = [
   { kanji: "白い羽", kana: "しろいはね" },
   { kanji: "雪をみる", kana: "ゆきをみる" },
   { kanji: "山道を歩く", kana: "やまみちをあるく" },
-  { kanji: "幽霊と戦う", kana: "ゆうれいとたたかう" },
+  { kanji: "幽霊と会う", kana: "ゆうれいとあう" },
   { kanji: "空の果て", kana: "そらのはて" },
   { kanji: "月夜の道", kana: "つきよのみち" },
   { kanji: "古い橋", kana: "ふるいはし" },
