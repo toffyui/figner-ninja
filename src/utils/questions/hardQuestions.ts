@@ -15,5 +15,4 @@ export const hardQuestions: Question[] = [
   { kanji: "幽霊を追いかける", kana: "ゆうれいをおいかける" },
   { kanji: "フランスに行く", kana: "ふらんすにいく" },
   { kanji: "お父さんと買い物をする", kana: "おとうさんとかいものをする" },
-  { kanji: "うたた寝をする", kana: "うたたねをする" },
 ];
