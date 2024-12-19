@@ -69,6 +69,7 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
     // 完全一致のチェック
     if (value === question.kana) {
       handleCorrectAnswer();
+      setScore((prevScore) => prevScore + 1);
       return;
     }
     // 次に期待する文字
@@ -79,7 +80,7 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
     // 入力が進んだ場合のみ判定
     if (currentInputChar === nextExpectedChar) {
       setInputValue(value);
-      setScore((prevScore) => prevScore + value.length);
+      setScore((prevScore) => prevScore + 1);
       if (typingSound.current) {
         typingSound.current.currentTime = 0;
         typingSound.current.play();
