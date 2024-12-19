@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { motion, useAnimation } from "framer-motion";
 import styles from "./index.module.scss";
 import { successTexts } from "../../utils/successTexts";
@@ -6,9 +6,9 @@ import { successTexts } from "../../utils/successTexts";
 export const CorrectAnimation = () => {
   const controls = useAnimation();
   const shurikenSound = useRef<HTMLAudioElement | null>(null);
-  const successText =
-    successTexts[Math.floor(Math.random() * successTexts.length)];
-
+  const successText = useMemo(() => {
+    return successTexts[Math.floor(Math.random() * successTexts.length)];
+  }, []);
   useEffect(() => {
     let isMounted = true;
 
