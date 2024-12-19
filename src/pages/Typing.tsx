@@ -84,7 +84,7 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
         typingSound.current.currentTime = 0;
         typingSound.current.play();
       }
-    } else if (value.length > inputValue.length) {
+    } else if (value.length > inputValue.length && !showCorrectAnimation) {
       handleFailAnswer();
       if (failSound.current) {
         failSound.current.currentTime = 0;
