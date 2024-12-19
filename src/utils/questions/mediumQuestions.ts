@@ -12,7 +12,7 @@ export const mediumQuestions: Question[] = [
   { kanji: "月夜を歩く", kana: "つきよをあるく" },
   { kanji: "夏の日に白い花をみる", kana: "なつのひにしろいはなをみる" },
   { kanji: "月明かりの中道を進む", kana: "つきあかりのなかみちをすすむ" },
-  { kanji: "森の中で鬼をまつ", kana: "もりのなかでおにをまつ" },
+  { kanji: "優しい鬼をまつ", kana: "やさしいおにをまつ" },
   { kanji: "お母さんと待ち合わせ", kana: "おかあさんとまちあわせ" },
   { kanji: "夜に寝る", kana: "よるにねる" },
 ];
