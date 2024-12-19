@@ -3,12 +3,14 @@ import { useEffect, useRef } from "react";
 type Props = {
   inputValue: string;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  resetInputField: () => void;
   inputKey: number;
 };
 
 export const InputForm: React.FC<Props> = ({
   inputValue,
   handleInputChange,
+  resetInputField,
   inputKey,
 }) => {
   useEffect(() => {
@@ -16,7 +18,7 @@ export const InputForm: React.FC<Props> = ({
       inputRef.current.value = "";
       inputRef.current.focus();
       setTimeout(() => {
-        handleInputChange({ target: { value: "" } } as any);
+        resetInputField();
       }, 200);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -123,6 +123,7 @@ export const Typing: React.FC<TypingScreenProps> = ({ level, onFinish }) => {
         inputValue={inputValue}
         handleInputChange={handleInputChange}
         inputKey={inputKey}
+        resetInputField={() => setInputValue("")}
       />
       <audio ref={typingSound} src="/sounds/typing.mp3" />
       <audio ref={failSound} src="/sounds/fail.mp3" />
